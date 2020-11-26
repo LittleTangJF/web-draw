@@ -1,34 +1,32 @@
 import React, {Component} from 'react';
-import {Form, Input,Row,Col, Button, Checkbox} from 'antd';
+import {Form, Input,Row,Col, Button, Modal} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './index.css'
 import logo from "../../asset/img/makoologo.png";
 import axios from 'axios'
-import {API} from "../../services";
 
 class Index extends Component {
     onFinish = values => {
-        console.log('Received values of form: ', values);
-        // API.do_login(values)
         axios({
-            url: 'http://lolita.chocloud.cn/lolita_api_v2/index.php/api/lottery/login',
+            url: '/lottery/login',
             method: 'post',
+            headers: { 'content-type': 'application/json' },
             data: values,
         }).then(res => {
             console.log(res)
+            let sessionID = res.data.data.session_id
+            localStorage.setItem('session_id', sessionID)
+            this.props.history.replace('/draw')
+        }).catch(err => {
+            console.log('2020-11-24 09:43:33打印：err', err.response)
+            let msg = err?.response?.data?.errmsg || '发生异常！'
+            Modal.error({
+                title: '提示',
+                content: `${msg}`,
+            });
         })
-        // axios.post('/lolita_api_v2/index.php/api/lottery/login',values)
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
     };
-    doLogin=()=>{
-
-    }
     render() {
 
         return (
