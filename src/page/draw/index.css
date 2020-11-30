@@ -93,3 +93,6 @@
     align-items: center;
     justify-content: center;
 }
+.ant-btn-dangerous.ant-btn-primary{
+    border-radius: 5px;
+}

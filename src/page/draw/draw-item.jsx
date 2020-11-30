@@ -65,7 +65,7 @@ class DrawItem extends Component {
     render() {
         return (
             <Row>
-                <Col span={12} offset={6}>
+                <Col xs={{ span: 18, offset: 3 }}  lg={{ span: 8, offset: 8 }} >
                     <div style={{touchAction: 'none'}} className='draw-item scrollbar' ref={this.refList}>
                         {this.props.list.length && this.props.list.map((d, index) => {
                             return <p key={index}>{d}</p>
